@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+   <html>
+      <head>
+       <meta charset="utf-8">
+		
+	
+	<title>Puzzle Game</title>
+
+
+	  <style type="text/css">
+
+	table { 
+			
+	padding: 3px;
+			
+	border-style: solid; 
+			
+	border-width: 35px; 
+			
+	border-color: pink;
+		
+		}
+		
+	table td { 
+			
+	padding: 3px; 
+			
+	border-style: solid; 
+			
+	border-width: 35px;
+			
+	background-color: white;
+		
+		}
+
+
+	table, table th, table td {
+	text-align: center; 
+	padding: 5px;
+       } 
+	</style>
+    <script type="text/javascript">
+
+ var board = new Array(16);
+ var shift= 0;
+
+function Array() {
+ for (var i = 0; i < 16; i++)
+ this[i+1] = Array[i]
+ }
+
+ function random() {
+ tile = Math.floor(Math.random()*16);
+
+ return tile;
+ }
+
+  function show(board) {
+  for (var i=0; i<16; i++)  {
+  document.forms[0].elements[i].value = board[i];
+  }
+   document.forms[0].swaps.value= shift;
+  }
+
+  function swap(tile) {
+  if (tile < 16 && board[tile+1]==0) {
+  board[tile+1]= board[tile];
+  board[tile]= 0;
+  shift++;
+ }
+  else if (tile > 0 && board[tile-1]==0) {
+  board[tile-1]= board[tile];
+  board[tile]= 0;
+  shift++;
+ } 
+
+  else if (tile < 16 && board[tile+4]==0) {
+  board[tile+4]= board[tile];
+  board[tile]= 0;
+  shift++;
+ } 
+
+  else if (tile > 0 && board[tile-4]==0) {
+  board[tile-4]= board[tile];
+  board[tile]= 0;
+  shift++;
+ }
+show(board);
+}
+
+function shuffle() {
+  var x=1;
+  for (var i=0; i<16; i++) {
+     board[i]=16;
+ }
+
+  for (var i=0; i<16;i++) {
+    randomNumber=random();
+
+  if (randomNumber==16) randomNumber=15;
+    x=1;
+
+  for (var j=0; j<16; j++)  {
+    if (j==i)
+  continue;
+
+   if (randomNumber==board[j]) {
+     x=0;
+  break;
+   }
+}
+
+  if (x==0) {
+    i--;
+
+ continue;
+  }
+ board[i]=randomNumber;
+ }
+ 
+ show(board);   
+}   
+
+     </script>
+   </head>
+ <body onload="window.shuffle()">
+
+<h1 align="center">15 Puzzle Game</h1>
+
+<p><h2 align="center">To begin this game, the tiles are already in haphazard manner,<br> click on the number adjacent, up or down the blank spot/num until <br> you are able to arrange the number completely in ascending order.</h2></p>
+
+<form>
+<table border="0" align = "center" cellspacing="10" celpadding="0">
+<tr>
+<td><input onclick="window.swap(0)" type="button" value="1"></td>
+<td ><input onclick="window.swap(1)" type="button" value="8"></td>
+<td ><input onclick="window.swap(2)" type="button" value="5"></td>
+<td ><input onclick="window.swap(3)" type="button" value="2"></td>
+</tr>
+<tr>
+<td ><input onclick="window.swap(4)" type="button" value="0"></td>
+<td ><input onclick="window.swap(5)" type="button" value="4"></td>
+<td ><input onclick="window.swap(6)" type="button" value="6"></td>
+<td ><input onclick="window.swap(7)" type="button" value="3"></td>
+</tr>
+<tr>
+<td ><input onclick="window.swap(8)" type="button" value="9"></td>
+<td ><input onclick="window.swap(9)" type="button" value="11"></td>
+<td ><input onclick="window.swap(10)" type="button" value="12"></td>
+<td ><input onclick="window.swap(11)" type="button" value="10"></td>
+</tr>
+<tr>
+<td ><input onclick="window.swap(12)" type="button" value="15"></td>
+<td ><input onclick="window.swap(13)" type="button" value="14"></td>
+<td ><input onclick="window.swap(14)" type="button" value="13"></td>
+<td ><input onclick="window.swap(15)" type="button" value="7"></td>
+</tr>
+
+  <tr>
+  <td align = "center"; colspan="4"><input onclick="window.shuffle()" type="button" value="Shuffle">
+  </td>
+  </tr>
+   </table>
+  </form>
+ </body>
+</html>
